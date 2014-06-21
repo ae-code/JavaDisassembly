@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+   		<link rel="stylesheet" type="text/css" href="{{staticFiles.stylesheet}}">
+   		<script src="{{staticFiles.jquery}}"></script>
+   		<script src="{{staticFiles.script}}"></script>
+   		
+ 		<title>{{data.metadata.sClassFile}}</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="class_header">{{data.metadata.sClassFile}}</h1>
+			<table class="stats_table">
+				<tr><td class="stats_header">Last Modified:</td><td>{{data.metadata.sLastModified}}</td></tr>
+				<tr><td class="stats_header">Size:</td><td>{{data.metadata.sSize}}</td></tr>
+				<tr><td class="stats_header">MD5 Hash:</td><td>{{data.metadata.sMD5}}</td></tr>
+				<tr><td class="stats_header">Source:</td><td>{{data.metadata.sSource}}</td></tr>
+			</table>
+			<br>
+			<div class="expandable">
+				<h3><span class="expand_collapse">-</span>&nbsp;&nbsp;Constant Pool</h3>
+			</div>
+			<table class="constants_table">
+				<tr>
+					<th class="constant_index_header">#</th>
+					<th class="constant_type_header">Type</th>
+					<th class="constant_value_header">Value</th>
+				</tr>
+				{{#data.constants}}
+				<tr class="constant_row">
+					<td class="constant_index">{{iIndex}}</td>
+					<td class="constant_type">{{sType}}</td>
+					<td class="constant_value{{#sComment}} reference{{/sComment}}" {{#sComment}}title="{{sComment}}"{{/sComment}}>{{sValue}}</td>
+				</tr>
+				{{/data.constants}}
+			</table>
+			<br>
+			<div class="expandable">
+				<h3><span class="expand_collapse">-</span>&nbsp;&nbsp;Members</h3>
+			</div>
+			<div>
+				{{#data.members}}
+				<div class="function_header">{{toString}}</div>
+				{{/data.members}}
+			</div>
+			<br>
+			<div class="expandable">
+				<h3><span class="expand_collapse">-</span>&nbsp;&nbsp;Methods</h3>
+			</div>
+			<div>
+				<a name="funcs"></a>
+				<ul class="listing_list">
+					{{#data.functions}}
+					<li class="listing"><a href="#f{{iIndex}}">{{sSignature}}</a></li>
+					{{/data.functions}}
+				</ul>
+				<br>
+				{{#data.functions}}
+				<div class="function">
+					<a name="f{{iIndex}}"></a>
+					<div class="function_header">{{sSignature}}</div>
+					<table class="code">
+						{{#lCode}}
+						<tr>
+							<td>{{iOffset}}</td>
+							<td>{{sOpcode}}</td>
+							<td {{#sComment}}title="{{sComment}}" class="reference"{{/sComment}}>{{sArgs}}</td>
+						</tr>
+						{{/lCode}}
+					</table>
+					<a class="back_link" href="#funcs">&#8593; Back to List</a>
+				</div>
+				<br>
+				{{/data.functions}}
+			</div>
+			<br>
+			<div class="expandable">
+				<h3><span class="expand_collapse">+</span>&nbsp;&nbsp;Raw Disassembly</h3>
+			</div>
+			<pre>
+				{{#data.raw}}
+{{toString}}	
+				{{/data.raw}}
+			</pre>
+		</div>
+	</body>
+</html>

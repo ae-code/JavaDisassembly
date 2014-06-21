@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+	<head>
+   		<link rel="stylesheet" type="text/css" href="{{staticFiles.stylesheet}}">
+ 		<title>Java Disassembly</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="class_header">Java Disassembly</h1>
+			<ul class="listing_list">
+				{{#files}}
+				<li class="listing"><a href="{{file}}">{{className}}</a></li>
+				{{/files}}
+			</ul>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,115 @@
+body {
+	margin: 20px;
+	background-color: lightgray;
+}
+
+.container {
+	background-color: white;
+	padding: 5px 25px;
+	border-radius: 10px;
+}
+
+.class_header {
+	font-family: monospace;
+}
+
+.stats_table {
+	width: 100%;
+	border: 2px solid lightgray;
+	border-radius: 6px;
+	background-color: gray;
+	color: white;
+}
+
+.stats_header {
+	font-weight: bold;
+}
+
+.listing_list {
+	list-style: none;
+	padding: 0px;
+	overflow-x: auto;
+}
+
+.listing {
+	font-family: monospace;
+	padding: 0px 20px;
+}
+
+.listing:hover {
+	background-color: lightgray;
+	font-weight: bold;
+}
+.listing a {
+	color: black;
+	text-decoration: none;
+}
+
+.constants_table {
+	width: 100%;
+	display: block;
+	overflow-x: hidden;
+}
+
+.constant_index {
+	text-align: right;
+}
+
+.constant_index_header {
+	text-align: right;
+}
+
+.constant_type {
+	font-family: monospace;
+}
+
+.constant_type_header {
+	text-align: left;
+}
+
+.constant_value {
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.constant_value_header {
+	text-align: left;
+}
+
+.constant_comment {
+	text-overflow: ellipsis;
+}
+.constant_comment_header {
+	text-align: left;
+}
+
+.constant_row:nth-child(even) {
+	background-color: lightgray;
+}
+
+.function_header {
+	font-family: monospace;
+	font-weight: bold;
+}
+
+.code {
+	font-family: monospace;
+}
+
+.expand_collapse {
+	padding: 0px 4px;
+	border-radius: 6px;
+	background-color: gray;
+	color: white;
+	cursor: pointer;
+}
+
+.reference {
+	border-bottom: 1px dashed black;
+	cursor: help;
+}
+
+.back_link {
+	color: gray;
+	font-size: 0.8em;
+}
