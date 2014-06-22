@@ -20,7 +20,8 @@ class StaticWriterImpl implements StaticWriter {
 
 	@Override
 	public Map<Statics, String> generateContent() throws HTMLGenerationException {
-		Path destDir = FileSystems.getDefault().getPath(m_config.getDestinationDirectory()).resolve("static/");
+		Path baseDestDir = FileSystems.getDefault().getPath(m_config.getDestinationDirectory());
+		Path destDir = baseDestDir.resolve("static/");
 		
 		Map<Statics, String> mFiles = new EnumMap<Statics, String>(Statics.class);
 		
@@ -30,7 +31,8 @@ class StaticWriterImpl implements StaticWriter {
 				throw new HTMLGenerationException("Static content not found");
 			BufferedInputStream bis = new BufferedInputStream(is);
 			
-			String sFilename = destDir.resolve(content.finalFilename()).toString();
+			Path pathFilename = destDir.resolve(content.finalFilename());
+			String sFilename = pathFilename.toString();
 			File file = new File(sFilename);
 			file.getParentFile().mkdirs();
 			FileOutputStream fos = null;
@@ -54,6 +56,7 @@ class StaticWriterImpl implements StaticWriter {
 				}
 			}
 			
+			sFilename = baseDestDir.relativize(pathFilename).toString();
 			mFiles.put(content, sFilename);
 		}
 		

@@ -29,6 +29,14 @@ class HTMLWriterImpl implements HTMLWriter {
 	public String generateHTML(String sClass, DisassemblyData data) throws HTMLGenerationException {
 		String sFilename = getFilename(sClass);
 		
+		Path pathFilename = FileSystems.getDefault().getPath(sFilename);
+		String sFinalFilename = m_root.relativize(pathFilename).toString();
+		
+		int depth = sFinalFilename.length() - sFinalFilename.replace("/", "").length();
+		String sRelativePath = "";
+		for (int i = 0; i < depth; ++i)
+			sRelativePath += "../";
+		
 		File file = new File(sFilename);
 		file.getParentFile().mkdirs();
 		try {
@@ -38,12 +46,13 @@ class HTMLWriterImpl implements HTMLWriter {
 		}
 		
 		try (FileWriter fileOut = new FileWriter(file)) {
+			m_formatter.setRelativePath(sRelativePath);
 			m_formatter.formatHTML(data, fileOut);
 		} catch (IOException e) {
 			throw new HTMLGenerationException("Error writing: " + sFilename, e);
 		}			
 		
-		return sFilename;
+		return sFinalFilename;
 	}
 
 	@Override
@@ -64,7 +73,8 @@ class HTMLWriterImpl implements HTMLWriter {
 			throw new HTMLGenerationException("Error writing: " + sFilename, e);
 		}			
 		
-		return sFilename;
+		Path pathFilename = FileSystems.getDefault().getPath(sFilename);
+		return m_root.relativize(pathFilename).toString();
 	}
 
 	private String getIndexFilename() {

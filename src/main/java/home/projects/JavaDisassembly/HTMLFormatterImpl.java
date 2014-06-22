@@ -3,6 +3,7 @@ package home.projects.JavaDisassembly;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,6 +17,7 @@ import com.github.mustachejava.MustacheFactory;
 class HTMLFormatterImpl implements HTMLFormatter {
 	private final Map<Statics, String> m_mStaticFiles;
 	private Mustache m_template = null;
+	private String m_sRelativePath = "";
 	
 	HTMLFormatterImpl(Config config, Map<Statics, String> mStaticFiles) throws InvalidConfig {		
 		m_mStaticFiles = mStaticFiles;
@@ -40,6 +42,11 @@ class HTMLFormatterImpl implements HTMLFormatter {
 		}
 	}
 	
+	@Override
+	public void setRelativePath(String s) {
+		m_sRelativePath = s;
+	}
+	
 	class TemplateData {
 		public TemplateData(DisassemblyData disData, Map<Statics, String> mStaticFiles) {
 			data = disData;
@@ -48,7 +55,8 @@ class HTMLFormatterImpl implements HTMLFormatter {
 			Iterator<Entry<Statics,String>> it = mStaticFiles.entrySet().iterator();
 			while (it.hasNext()) {
 				Entry<Statics,String> itVal = it.next();
-				staticFiles.put(itVal.getKey().staticName(), itVal.getValue());
+
+				staticFiles.put(itVal.getKey().staticName(), m_sRelativePath + itVal.getValue());
 			}
 		}
 		
